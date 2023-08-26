@@ -13,7 +13,7 @@ const reportedError = {
       id: 'reportedError',
       title: 'Reported Errors',
       type: 'item',
-      url: '#', //change this
+      url: '/reported-errors/', 
       icon: icons.IconMessageReport,
       breadcrumbs: false
     }

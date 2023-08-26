@@ -7,15 +7,25 @@ import Loadable from 'ui-component/Loadable';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/')));
 
-// utilities routing
-const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
-const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialIcons')));
-const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
+// change password routing
+const ChangePassword = Loadable(lazy(() => import('views/change-password')));
 
-// sample page routing
-const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+// ssales routing
+const Sales = Loadable(lazy(() => import('views/sales')));
+
+// reported errors routing
+const ReportedErrors = Loadable(lazy(() => import('views/reported-errors')));
+
+// user routing
+const User = Loadable(lazy(() => import('views/user')));
+
+// lesson routing
+const ViewLesson = Loadable(lazy(() => import('views/lesson/view-lesson')));
+const AddLesson = Loadable(lazy(() => import('views/lesson/add-lesson')));
+
+// quiz routing
+const ViewQuiz = Loadable(lazy(() => import('views/quiz/view-quiz')));
+const AddQuiz = Loadable(lazy(() => import('views/quiz/add-quiz')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -33,53 +43,56 @@ const MainRoutes = {
       ]
     },
     {
-      path: 'utils',
+      path: 'lesson',
       children: [
         {
-          path: 'util-typography',
-          element: <UtilsTypography />
+          path: 'add-lesson',
+          element: <AddLesson />
         }
       ]
     },
     {
-      path: 'utils',
+      path: 'lesson',
       children: [
         {
-          path: 'util-color',
-          element: <UtilsColor />
+          path: 'view-lesson',
+          element: <ViewLesson />
         }
       ]
     },
     {
-      path: 'utils',
+      path: 'quiz',
       children: [
         {
-          path: 'util-shadow',
-          element: <UtilsShadow />
+          path: 'add-quiz',
+          element: <AddQuiz />
         }
       ]
     },
     {
-      path: 'icons',
+      path: 'quiz',
       children: [
         {
-          path: 'tabler-icons',
-          element: <UtilsTablerIcons />
+          path: 'view-quiz',
+          element: <ViewQuiz />
         }
       ]
     },
     {
-      path: 'icons',
-      children: [
-        {
-          path: 'material-icons',
-          element: <UtilsMaterialIcons />
-        }
-      ]
+      path: 'reported-errors',
+      element: <ReportedErrors />
     },
     {
-      path: 'sample-page',
-      element: <SamplePage />
+      path: 'sales',
+      element: <Sales />
+    }, 
+    {
+      path: 'change-password',
+      element: <ChangePassword />
+    },
+    {
+      path: 'user',
+      element: <User />
     }
   ]
 };

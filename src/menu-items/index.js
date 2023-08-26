@@ -1,7 +1,4 @@
 import dashboard from './dashboard';
-// import pages from './pages';
-// import utilities from './utilities';
-// import other from './other';
 import lesson from './lesson';
 import quiz from './quiz';
 import reportedError from './reportedError';

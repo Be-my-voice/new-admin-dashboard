@@ -12,7 +12,7 @@ const user = {
       id: 'user',
       title: 'Users',
       type: 'item',
-      url: '#', // Change this 
+      url: '/user', 
       icon: icons.IconUsers, 
       breadcrumbs: false
     }

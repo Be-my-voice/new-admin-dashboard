@@ -1,8 +1,8 @@
 // assets
-import { IconBook } from '@tabler/icons'; // Use the appropriate book icon from Tabler Icons
+import { IconBook } from '@tabler/icons'; 
 
 // constant
-const icons = { IconBook }; // Update the icons object with the new icon
+const icons = { IconBook }; 
 
 const pages = {
   id: 'pages',
@@ -12,22 +12,20 @@ const pages = {
       id: 'lesson',
       title: 'Lesson',
       type: 'collapse',
-      icon: icons.IconBook, // Update the icon to IconBook for book-related icon
+      icon: icons.IconBook, 
 
       children: [
         {
           id: 'viewLesson',
           title: 'View Lessons',
           type: 'item',
-          url: '#', // Change this URL
-          target: true
+          url: '/lesson/view-lesson/', 
         },
         {
           id: 'addLesson',
           title: 'Add New Lesson',
           type: 'item',
-          url: '#', // Change this URL
-          target: true
+          url: '/lesson/add-lesson/', 
         }
       ]
     }

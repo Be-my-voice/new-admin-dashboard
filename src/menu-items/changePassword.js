@@ -1,8 +1,8 @@
 // assets
-import { IconKey } from '@tabler/icons'; // Use the appropriate key icon from Tabler Icons
+import { IconKey } from '@tabler/icons'; 
 
 // constant
-const icons = { IconKey }; // Update the icons object with the new icon
+const icons = { IconKey }; 
 
 const changePassword = {
   id: 'changePassword',
@@ -12,8 +12,8 @@ const changePassword = {
       id: 'changePassword',
       title: 'Change Password',
       type: 'item',
-      url: '/dashboard/', // Change this to the appropriate URL
-      icon: icons.IconKey, // Update the icon here
+      url: '/change-password/', 
+      icon: icons.IconKey, 
       breadcrumbs: false
     }
   ]

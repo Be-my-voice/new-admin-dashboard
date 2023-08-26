@@ -1,8 +1,8 @@
 // assets
-import { IconReportMoney } from '@tabler/icons'; // Use the appropriate icon for money-related content
+import { IconReportMoney } from '@tabler/icons';
 
 // constant
-const icons = { IconReportMoney }; // Update the icons object with the new icon
+const icons = { IconReportMoney }; 
 
 const sales = {
   id: 'sales',
@@ -12,8 +12,8 @@ const sales = {
       id: 'sales',
       title: 'Sales',
       type: 'item',
-      url: '#', // Change this URL to the desired URL
-      icon: icons.IconReportMoney, // Update the icon to ReportMoney
+      url: '/sales/',
+      icon: icons.IconReportMoney, 
       breadcrumbs: false
     }
   ]

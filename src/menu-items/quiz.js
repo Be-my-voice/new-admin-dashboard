@@ -19,15 +19,13 @@ const pages = {
           id: 'viewQuiz',
           title: 'View Quizzes',
           type: 'item',
-          url: '#', // Change this URL
-          target: true
+          url: '/quiz/view-quiz/', 
         },
         {
           id: 'addQuiz',
           title: 'Add New Quiz',
           type: 'item',
-          url: '#', // Change this URL
-          target: true
+          url: '/quiz/add-quiz/', 
         }
       ]
     }
