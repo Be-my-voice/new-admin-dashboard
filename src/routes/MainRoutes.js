@@ -10,7 +10,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/')));
 // change password routing
 const ChangePassword = Loadable(lazy(() => import('views/change-password')));
 
-// ssales routing
+// sales routing
 const Sales = Loadable(lazy(() => import('views/sales')));
 
 // reported errors routing
@@ -26,6 +26,9 @@ const AddLesson = Loadable(lazy(() => import('views/lesson/add-lesson')));
 // quiz routing
 const ViewQuiz = Loadable(lazy(() => import('views/quiz/view-quiz')));
 const AddQuiz = Loadable(lazy(() => import('views/quiz/add-quiz')));
+
+// user profile routing
+const UserProfile = Loadable(lazy(() => import('views/user/[userId]')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -92,8 +95,17 @@ const MainRoutes = {
     },
     {
       path: 'user',
-      element: <User />
-    }
+      children: [
+        {
+          path: '', // This is the default route for the User page
+          element: <User />
+        },
+        {
+          path: ':userId', // This matches user profile URLs like 'user/user123'
+          element: <UserProfile />
+        }
+      ]
+    },
   ]
 };
 
