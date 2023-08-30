@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react';
 import { Typography, Card, CardContent, CardHeader, Divider, Grid, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
-import logo from 'assets/images/defaultUser.png';
+import defaultImage from 'assets/images/defaultUser.png';
 import ScreenTime from '../user/ScreenTime';
 import WordsTranslated from '../user/wordsTranslated';
 import DisableUserPopup from './DisableUserPopup';
@@ -33,7 +33,7 @@ const UserProfile = () => {
     fullName: 'Joshua Johns',
     lastActiveDate: 'August 30, 2023',
     email: 'joshuajohns@gmail.com',
-    image: logo,
+    image: defaultImage,
     contactNumber: '+94 77 824 9346',
     membershipCategory: 'Premium',
     screenTime: '2 hours 55 minutes',
