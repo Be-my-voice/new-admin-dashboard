@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 // import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Grid, Typography, Button, Divider } from '@mui/material';
 import defaultVideo from '../../assets/videos/lesson/preview.mp4';
+import AddSectionPopup from './AddSectionPopup';
+import DeleteLessonPopup from './DeleteLessonPopup';
+import EditLessonTitlePopup from './EditLessonTitlePopup';
+import DeleteSectionPopup from './DeleteSectionPopup';
 
 const ViewIndividualLesson = () => {
   // const { lessonId } = useParams();
+
+  // state variables for pop-up
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [showDeleteSectionPopup, setShowDeleteSectionPopup] = useState(false);
+  const [showAddSectionPopup, setShowAddSectionPopup] = useState(false);
+
+  // Function to handle the delete button click
+  const handleDeleteButtonClick = () => {
+    setShowDeletePopup(true);
+  };
+
+  // Function to handle the edit button click
+  const handleEditButtonClick = () => {
+    setShowEditPopup(true);
+  };
+
+  // Function to handle the delete section button click
+  const handleDeleteSectionButtonClick = () => {
+    setShowDeleteSectionPopup(true);
+  };
+
+  // Function to handle the add section button click
+  const handleAddSectionButtonClick = () => {
+    setShowAddSectionPopup(true);
+  };
+
+  // Function to close pop-ups
+  const handleClosePopup = () => {
+    setShowDeletePopup(false);
+    setShowEditPopup(false);
+    setShowDeleteSectionPopup(false);
+    setShowAddSectionPopup(false);
+  };
 
   const lesson ={
     title : "Days of the Week",
@@ -19,10 +57,10 @@ const ViewIndividualLesson = () => {
           Lesson: {lesson.title}
         </Typography>
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-          <Button variant="contained" color="primary" sx={{paddingLeft: '35px', paddingRight: '35px', color: 'white', }}>
+          <Button variant="contained" color="primary" sx={{paddingLeft: '35px', paddingRight: '35px', color: 'white', }} onClick={handleEditButtonClick}>
             Edit Title
           </Button>
-          <Button variant="contained" color="error" sx={{ color: 'white', backgroundColor: '#f44336', }}>
+          <Button variant="contained" color="error" sx={{ color: 'white', backgroundColor: '#f44336', }} onClick={handleDeleteButtonClick}>
             Delete Lesson
           </Button>
         </div>
@@ -44,8 +82,8 @@ const ViewIndividualLesson = () => {
                     Monday
                   </Typography>
                   <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1rem' }}>
-                    <Button variant="outlined" color="primary" sx={{ width: '100px',  border: '1px solid' }}>Edit</Button>
-                    <Button variant="outlined" color="error" sx={{ width: '100px',  border: '1px solid' }}>Delete</Button>
+                    <Button variant="outlined" color="primary" sx={{ width: '100px',  border: '1px solid' }} onClick={handleAddSectionButtonClick}>Edit</Button>
+                    <Button variant="outlined" color="error" sx={{ width: '100px',  border: '1px solid' }} onClick={handleDeleteSectionButtonClick}>Delete</Button>
                   </div>
 
                 </CardContent>
@@ -56,8 +94,23 @@ const ViewIndividualLesson = () => {
 
       {/* Add new section button */}
       <Grid container justifyContent="center" mt={3}>
-        <Button variant="contained" color="secondary" sx={{color:'white' , width: '100%', '&:hover': { backgroundColor: 'white', border:'2px solid',borderColor: 'secondary.main', color:'secondary.main' } }}>Add New Section</Button>
+        <Button variant="contained" color="secondary" sx={{color:'white' , width: '100%', '&:hover': { backgroundColor: 'white', border:'2px solid',borderColor: 'secondary.main', color:'secondary.main' } }} 
+        onClick={handleAddSectionButtonClick}>
+          Add New Section
+        </Button>
       </Grid>
+
+      {/* handling pop up for deleting lesson*/}
+      <DeleteLessonPopup open={showDeletePopup} onClose={handleClosePopup} />
+      
+      {/* handling pop up for editing lesson title */}
+      <EditLessonTitlePopup open={showEditPopup} onClose={handleClosePopup} />
+
+      {/* handling pop up for deleting section */}
+      <DeleteSectionPopup open={showDeleteSectionPopup} onClose={handleClosePopup} />
+
+      {/* handling pop up for editing section */}
+      <AddSectionPopup open={showAddSectionPopup} onClose={handleClosePopup} /> 
 
     </MainCard>
   );

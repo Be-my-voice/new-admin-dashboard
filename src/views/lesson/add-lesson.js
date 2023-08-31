@@ -1,121 +1,104 @@
-import PropTypes from 'prop-types';
-
-// material-ui
-import { Box, Card, Grid } from '@mui/material';
-
-// project imports
+import React, { useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
-import { gridSpacing } from 'store/constant';
+import { Button, Grid, Typography, Divider, TextField } from '@mui/material';
+import AddSectionPopup from './AddSectionPopup';
+// import IncompleteLesson from './IncompleteLessonPopup';
+import SavedLessonPopup from './LessonSavePopup';
 
-// ===============================|| SHADOW BOX ||=============================== //
+const AddLesson = () => {
+  const [showAddSectionPopup, setShowAddSectionPopup] = useState(false);
+  const [showSaveLessonPopup, setShowSaveLessonPopup] = useState(false);
+  // const [showIncompleteLessonPopup, setShowIncompleteLessonPopup] = useState(false);
 
-const ShadowBox = ({ shadow }) => (
-  <Card sx={{ mb: 3, boxShadow: shadow }}>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        py: 4.5,
-        bgcolor: 'primary.light',
-        color: 'grey.800'
-      }}
-    >
-      <Box sx={{ color: 'inherit' }}>boxShadow: {shadow}</Box>
-    </Box>
-  </Card>
-);
+  // Function to handle the add section button click
+  const handleAddSectionButtonClick = () => {
+    setShowAddSectionPopup(true);
+  };
 
-ShadowBox.propTypes = {
-  shadow: PropTypes.string.isRequired
+  // Function to handle the save lesson button click
+  const handleSaveLessonButtonClick = () => {
+    setShowSaveLessonPopup(true);
+  };
+
+  // //handles add section in incomplete lesson pop up
+  // const handleAddSectionConfirmed = () => {
+  //   setShowIncompleteLessonPopup(false);
+  //   setShowAddSectionPopup(true);
+  // };
+
+  // // Function to handle the incomplete lesson button click
+  // const handleIncompleteLessonButtonClick = () => {
+  //   setShowIncompleteLessonPopup(true);
+  // };
+
+  // Function to close pop-ups
+  const handleClosePopup = () => {
+    setShowAddSectionPopup(false);
+    setShowSaveLessonPopup(false);
+    // setShowIncompleteLessonPopup(false);
+
+  };
+
+  return (
+    <MainCard>
+      <Grid container alignItems="center" justifyContent="space-between">
+        <Typography variant="h4" sx={{ fontWeight: 600 }}>Add New Lesson</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ padding: '8px 25px', color: 'white', backgroundColor: '#147B72', '&:hover': { backgroundColor: '#117163' } }}
+          // onClick={handleIncompleteLessonButtonClick}
+          onClick={handleSaveLessonButtonClick}
+          >
+          Save Lesson
+        </Button>
+      </Grid>
+      <Divider sx={{ marginTop: '15px' }} />
+
+      <form>
+        {/* Lesson Title Form */}
+        {/* <Typography variant="h5" sx={{ fontWeight: 600, marginTop:'20px' }}>Lesson Title</Typography> */}
+        <TextField
+          label="Enter lesson title"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          id="lessonTitle"
+          sx={{ marginBottom: '20px' }}
+        />
+        {/* Add new section button */}
+        <Grid container justifyContent="center">
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{
+              color: 'white',
+              width: '100%',
+              '&:hover': {
+                backgroundColor: 'white',
+                border: '2px solid',
+                borderColor: 'secondary.main',
+                color: 'secondary.main'
+              }
+            }}
+            onClick={handleAddSectionButtonClick}
+          >
+            Add New Section
+          </Button>
+        </Grid>
+      </form>
+
+      {/* handling pop up for editing section */}
+      <AddSectionPopup open={showAddSectionPopup} onClose={handleClosePopup} /> 
+
+      {/* handling pop up for saving lesson */}
+      <SavedLessonPopup open={showSaveLessonPopup} onClose={handleClosePopup} /> 
+
+      {/* handling pop up for incomplete lesson */}
+      {/* <IncompleteLesson open={showIncompleteLessonPopup} onClose={handleClosePopup} onAddSection={handleAddSectionConfirmed} />  */}
+
+    </MainCard>
+  );
 };
 
-// ============================|| UTILITIES SHADOW ||============================ //
-
-const UtilitiesShadow = () => (
-  <MainCard title="Basic Shadow">
-    <Grid container spacing={gridSpacing}>
-      <Grid item xs={12}>
-          <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="0" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="1" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="2" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="3" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="4" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="5" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="6" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="7" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="8" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="9" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="10" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="11" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="12" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="13" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="14" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="15" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="16" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="17" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="18" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="19" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="20" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="21" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="22" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="23" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="24" />
-            </Grid>
-          </Grid>
-      </Grid>
-    </Grid>
-  </MainCard>
-);
-
-export default UtilitiesShadow;
+export default AddLesson;
