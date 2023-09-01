@@ -33,7 +33,7 @@ const LessonSavedPopup = ({ open, onClose }) => {
           </DialogContentText>
 
           <DialogContentText sx={{ color: 'black', textAlign: 'center', marginTop: '18px' }}>
-            New Lesson Added Successfully.
+            New Quiz Added Successfully.
           </DialogContentText>
         </Box>
       </DialogContent>
@@ -49,7 +49,7 @@ const LessonSavedPopup = ({ open, onClose }) => {
           }}
           onClick={() => {
             onClose(); 
-            navigate('/lesson/view-lesson'); 
+            navigate('/quiz/view-quiz'); 
           }}
         >
           Continue

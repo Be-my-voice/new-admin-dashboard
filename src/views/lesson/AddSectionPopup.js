@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Typography, Grid } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Grid } from '@mui/material';
 
 const AddSectionPopup = ({ open, onClose }) => {
   const handleSubmit = (event) => {
@@ -12,9 +12,6 @@ const AddSectionPopup = ({ open, onClose }) => {
       <form onSubmit={handleSubmit}>
         <DialogTitle style={{ textAlign: 'center', fontSize: '24px' }}>Add New Section</DialogTitle>
         <DialogContent>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
-            Fill in the details for the new section:
-          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -41,11 +38,11 @@ const AddSectionPopup = ({ open, onClose }) => {
           </Grid>
         </DialogContent>
         <DialogActions style={{ padding: '20px', justifyContent:'space-between' , paddingTop:'0'}}>
-          <Button variant="contained" color="error" onClick={onClose} style={{ paddingRight: '30px', paddingLeft:'30px' }}>
-            Cancel
+          <Button variant="contained" color="error" onClick={onClose}>
+            Discard Changes
           </Button>
-          <Button type="submit" variant="contained" color="primary">
-            Add Section
+          <Button type="submit" variant="contained" color="primary" sx={{color:'white', padding:'6px 20px'}}>
+            Save Changes
           </Button>
         </DialogActions>
       </form>

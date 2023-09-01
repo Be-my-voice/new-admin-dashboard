@@ -1,121 +1,103 @@
-import PropTypes from 'prop-types';
-
-// material-ui
-import { Box, Card, Grid } from '@mui/material';
-
-// project imports
+import React, { useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
-import { gridSpacing } from 'store/constant';
+import { Button, Grid, Typography, Divider, TextField } from '@mui/material';
+import AddQuestionPopup from './AddQuestionPopup';
+// import IncompleteQuiz from './IncompleteQuizPopup';
+import SavedQuizPopup from './QuizSavePopup';
 
-// ===============================|| SHADOW BOX ||=============================== //
+const AddLesson = () => {
+  const [showAddQuestionPopup, setShowAddQuestionPopup] = useState(false);
+  const [showSaveQuizPopup, setShowSaveQuizPopup] = useState(false);
+  // const [showIncompleteQuizPopup, setShowIncompleteQuizPopup] = useState(false);
 
-const ShadowBox = ({ shadow }) => (
-  <Card sx={{ mb: 3, boxShadow: shadow }}>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        py: 4.5,
-        bgcolor: 'primary.light',
-        color: 'grey.800'
-      }}
-    >
-      <Box sx={{ color: 'inherit' }}>boxShadow: {shadow}</Box>
-    </Box>
-  </Card>
-);
+  // Function to handle the add question button click
+  const handleAddQuestionButtonClick = () => {
+    setShowAddQuestionPopup(true);
+  };
 
-ShadowBox.propTypes = {
-  shadow: PropTypes.string.isRequired
+  // Function to handle the save quiz button click
+  const handleSaveQuizButtonClick = () => {
+    setShowSaveQuizPopup(true);
+  };
+
+  //handles add question in incomplete quiz pop up
+  // const handleAddQuestionConfirmed = () => {
+  //   setShowIncompleteQuizPopup(false);
+  //   setShowAddQuestionPopup(true);
+  // };
+
+  // Function to handle the incomplete quiz button click
+  // const handleIncompleteQuizButtonClick = () => {
+  //   setShowIncompleteQuizPopup(true);
+  // };
+
+  // Function to close pop-ups
+  const handleClosePopup = () => {
+    setShowAddQuestionPopup(false);
+    setShowSaveQuizPopup(false);
+    // setShowIncompleteQuizPopup(false);
+  };
+
+  return (
+    <MainCard>
+      <Grid container alignItems="center" justifyContent="space-between">
+        <Typography variant="h4" sx={{ fontWeight: 600 }}>Add New Quiz</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ padding: '8px 25px', color: 'white', backgroundColor: '#147B72', '&:hover': { backgroundColor: '#117163' } }}
+          // onClick={handleIncompleteQuizButtonClick}
+          onClick={handleSaveQuizButtonClick}
+          >
+          Save Quiz
+        </Button>
+      </Grid>
+      <Divider sx={{ marginTop: '15px' }} />
+
+      <form>
+        {/* Lesson Title Form */}
+        {/* <Typography variant="h5" sx={{ fontWeight: 600, marginTop:'20px' }}>Lesson Title</Typography> */}
+        <TextField
+          label="Enter Quiz title"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          id="lessonTitle"
+          sx={{ marginBottom: '20px' }}
+        />
+        {/* Add new section button */}
+        <Grid container justifyContent="center">
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{
+              color: 'white',
+              width: '100%',
+              '&:hover': {
+                backgroundColor: 'white',
+                border: '2px solid',
+                borderColor: 'secondary.main',
+                color: 'secondary.main'
+              }
+            }}
+            onClick={handleAddQuestionButtonClick}
+          >
+            Add New Question
+          </Button>
+        </Grid>
+      </form>
+
+      {/* handling pop up for editing section */}
+      <AddQuestionPopup open={showAddQuestionPopup} onClose={handleClosePopup} /> 
+
+      {/* handling pop up for saving lesson */}
+      <SavedQuizPopup open={showSaveQuizPopup} onClose={handleClosePopup} /> 
+
+      {/* handling pop up for incomplete lesson */}
+      {/* <IncompleteQuiz open={showIncompleteQuizPopup} onClose={handleClosePopup} onAddSection={handleAddQuestionConfirmed} />  */}
+
+    </MainCard>
+  );
 };
 
-// ============================|| UTILITIES SHADOW ||============================ //
-
-const UtilitiesShadow = () => (
-  <MainCard title="Basic Shadow">
-    <Grid container spacing={gridSpacing}>
-      <Grid item xs={12}>
-          <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="0" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="1" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="2" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="3" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="4" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="5" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="6" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="7" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="8" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="9" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="10" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="11" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="12" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="13" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="14" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="15" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="16" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="17" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="18" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="19" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="20" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="21" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="22" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="23" />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-              <ShadowBox shadow="24" />
-            </Grid>
-          </Grid>
-      </Grid>
-    </Grid>
-  </MainCard>
-);
-
-export default UtilitiesShadow;
+export default AddLesson;

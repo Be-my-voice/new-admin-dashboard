@@ -3,13 +3,13 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, B
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
-const DisableUserPopup = ({ open, onClose, onConfirm }) => {
+const DeleteQuestionPopup = ({ open, onClose}) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle style={{ textAlign: 'center', fontSize: '24px',}}>Delete Section</DialogTitle>
+      <DialogTitle style={{ textAlign: 'center', fontSize: '24px',}}>Delete Question</DialogTitle>
       <DialogContent>
         <DialogContentText style={{ marginBottom:'10px' }}>
-            Are you sure you want to delete Section 03?
+            Are you sure you want to delete Question 03?
         </DialogContentText>
         <div
             style={{
@@ -21,7 +21,7 @@ const DisableUserPopup = ({ open, onClose, onConfirm }) => {
         >
             <FontAwesomeIcon icon={faExclamationTriangle} style={{ height: '13px', marginRight: '5px' }} /> Warning
             <DialogContentText style={{ color: '#BC4C2E', marginTop:'5px' }}> 
-                By deleting this section, the user would not be able to access it.
+                By deleting this Question, the user would not be able to access it.
             </DialogContentText>
         </div>
 
@@ -30,7 +30,7 @@ const DisableUserPopup = ({ open, onClose, onConfirm }) => {
         <Button variant="contained" size="small" onClick={onClose} color="primary" sx={{color:"white"}}>
           No, Cancel
         </Button>
-        <Button variant="contained" size="small" onClick={onConfirm} color="error">
+        <Button variant="contained" size="small" color="error">
           Yes, Delete
         </Button>
       </DialogActions>
@@ -38,4 +38,4 @@ const DisableUserPopup = ({ open, onClose, onConfirm }) => {
   );
 };
 
-export default DisableUserPopup;
+export default DeleteQuestionPopup;

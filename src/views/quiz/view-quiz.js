@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const quiz = {
   quizId: 'quiz123',
   Name: 'Week Days',
-  numberOfSections: '07',
+  numberOfQuestions: '07',
 };
 
 const ShadowBox = ({ quiz }) => (
@@ -33,7 +33,7 @@ const ShadowBox = ({ quiz }) => (
         {quiz.Name}
       </Typography>
       <Typography variant="body2" mt={1}>
-        {quiz.numberOfSections} Sections
+        {quiz.numberOfQuestions} Questions
       </Typography>
       <Link to={`/quiz/${quiz.quizId}`} style={{ textDecoration: 'none' }}>
       <Button variant="contained" color="primary" size="small" sx={{ mt: 2, px: 4 }}>

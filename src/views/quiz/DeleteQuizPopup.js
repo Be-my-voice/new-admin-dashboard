@@ -6,10 +6,10 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 const DisableUserPopup = ({ open, onClose, onConfirm }) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle style={{ textAlign: 'center', fontSize: '24px',}}>Delete Section</DialogTitle>
+      <DialogTitle style={{ textAlign: 'center', fontSize: '24px',}}>Delete Quiz</DialogTitle>
       <DialogContent>
         <DialogContentText style={{ marginBottom:'10px' }}>
-            Are you sure you want to delete Section 03?
+            Are you sure you want to delete Quiz - Days of the Week?
         </DialogContentText>
         <div
             style={{
@@ -21,7 +21,7 @@ const DisableUserPopup = ({ open, onClose, onConfirm }) => {
         >
             <FontAwesomeIcon icon={faExclamationTriangle} style={{ height: '13px', marginRight: '5px' }} /> Warning
             <DialogContentText style={{ color: '#BC4C2E', marginTop:'5px' }}> 
-                By deleting this section, the user would not be able to access it.
+                By deleting this Quiz, the user would not be able to access it
             </DialogContentText>
         </div>
 

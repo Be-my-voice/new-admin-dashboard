@@ -1,49 +1,49 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 // import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Grid, Typography, Button, Divider } from '@mui/material';
 import defaultVideo from '../../assets/videos/lesson/preview.mp4';
-// import AddSectionPopup from './AddSectionPopup';
-// import DeleteLessonPopup from './DeleteLessonPopup';
-// import EditLessonTitlePopup from './EditLessonTitlePopup';
-// import DeleteSectionPopup from './DeleteSectionPopup';
+import AddQuestionPopup from './AddQuestionPopup';
+import DeleteQuizPopup from './DeleteQuizPopup';
+import EditQuizTitlePopup from './EditQuizTitlePopup';
+import DeleteQuestionPopup from './DeleteQuestionPopup';
 
 const ViewIndividualQuiz = () => {
-  // const { lessonId } = useParams();
+  // const { quizId } = useParams();
 
   // state variables for pop-up
-//   const [showDeletePopup, setShowDeletePopup] = useState(false);
-//   const [showEditPopup, setShowEditPopup] = useState(false);
-//   const [showDeleteSectionPopup, setShowDeleteSectionPopup] = useState(false);
-//   const [showAddSectionPopup, setShowAddSectionPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [showDeleteQuestionPopup, setShowDeleteQuestionPopup] = useState(false);
+  const [showAddQuestionPopup, setShowAddQuestionPopup] = useState(false);
 
-//   // Function to handle the delete button click
-//   const handleDeleteButtonClick = () => {
-//     setShowDeletePopup(true);
-//   };
+  // Function to handle the delete button click
+  const handleDeleteButtonClick = () => {
+    setShowDeletePopup(true);
+  };
 
-//   // Function to handle the edit button click
-//   const handleEditButtonClick = () => {
-//     setShowEditPopup(true);
-//   };
+  // Function to handle the edit button click
+  const handleEditButtonClick = () => {
+    setShowEditPopup(true);
+  };
 
-//   // Function to handle the delete section button click
-//   const handleDeleteSectionButtonClick = () => {
-//     setShowDeleteSectionPopup(true);
-//   };
+  // Function to handle the delete Question button click
+  const handleDeleteQuestionButtonClick = () => {
+    setShowDeleteQuestionPopup(true);
+  };
 
-//   // Function to handle the add section button click
-//   const handleAddSectionButtonClick = () => {
-//     setShowAddSectionPopup(true);
-//   };
+  // Function to handle the add question button click
+  const handleAddQuestionButtonClick = () => {
+    setShowAddQuestionPopup(true);
+  };
 
-//   // Function to close pop-ups
-//   const handleClosePopup = () => {
-//     setShowDeletePopup(false);
-//     setShowEditPopup(false);
-//     setShowDeleteSectionPopup(false);
-//     setShowAddSectionPopup(false);
-//   };
+  // Function to close pop-ups
+  const handleClosePopup = () => {
+    setShowDeletePopup(false);
+    setShowEditPopup(false);
+    setShowDeleteQuestionPopup(false);
+    setShowAddQuestionPopup(false);
+  };
 
   const quiz ={
     title : "Days of the Week",
@@ -58,12 +58,12 @@ const ViewIndividualQuiz = () => {
         </Typography>
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
           <Button variant="contained" color="primary" sx={{paddingLeft: '35px', paddingRight: '35px', color: 'white', }} 
-        //   onClick={handleEditButtonClick}
+          onClick={handleEditButtonClick}
           >
             Edit Title
           </Button>
           <Button variant="contained" color="error" sx={{ color: 'white', backgroundColor: '#f44336',paddingLeft: '20px', paddingRight: '20px', }} 
-        //   onClick={handleDeleteButtonClick}
+          onClick={handleDeleteButtonClick}
         >
             Delete Quiz
           </Button>
@@ -117,10 +117,14 @@ const ViewIndividualQuiz = () => {
 
 
                     <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1rem' }}>
-                        <Button variant="outlined" color="primary" sx={{ width: '100px', border: '1px solid' }}>
+                        <Button variant="outlined" color="primary" sx={{ width: '100px', border: '1px solid' }} 
+                        onClick={handleAddQuestionButtonClick}
+                        >
                         Edit
                         </Button>
-                        <Button variant="outlined" color="error" sx={{ width: '100px', border: '1px solid' }}>
+                        <Button variant="outlined" color="error" sx={{ width: '100px', border: '1px solid' }} 
+                        onClick={handleDeleteQuestionButtonClick}
+                        >
                         Delete
                         </Button>
                     </div>
@@ -131,26 +135,26 @@ const ViewIndividualQuiz = () => {
         </Grid>
 
 
-      {/* Add new section button */}
+      {/* Add new question button */}
       <Grid container justifyContent="center" mt={3}>
         <Button variant="contained" color="secondary" sx={{color:'white' , width: '100%', '&:hover': { backgroundColor: 'white', border:'2px solid',borderColor: 'secondary.main', color:'secondary.main' } }} 
-        // onClick={handleAddSectionButtonClick}
+        onClick={handleAddQuestionButtonClick}
         >
           Add New Question
         </Button>
       </Grid>
 
-      {/* handling pop up for deleting lesson */}
-      {/* <DeleteLessonPopup open={showDeletePopup} onClose={handleClosePopup} /> */}
+      {/* handling pop up for deleting quiz */}
+      <DeleteQuizPopup open={showDeletePopup} onClose={handleClosePopup} />
       
-      {/* handling pop up for editing lesson title */}
-      {/* <EditLessonTitlePopup open={showEditPopup} onClose={handleClosePopup} /> */}
+      {/* handling pop up for editing quiz title */}
+      <EditQuizTitlePopup open={showEditPopup} onClose={handleClosePopup} />
 
-      {/* handling pop up for deleting section */}
-      {/* <DeleteSectionPopup open={showDeleteSectionPopup} onClose={handleClosePopup} /> */}
+      {/* handling pop up for deleting Question */}
+      <DeleteQuestionPopup open={showDeleteQuestionPopup} onClose={handleClosePopup} />
 
-      {/* handling pop up for editing section */}
-      {/* <AddSectionPopup open={showAddSectionPopup} onClose={handleClosePopup} />  */}
+      {/* handling pop up for editing Question */}
+      <AddQuestionPopup open={showAddQuestionPopup} onClose={handleClosePopup} /> 
 
     </MainCard>
   );

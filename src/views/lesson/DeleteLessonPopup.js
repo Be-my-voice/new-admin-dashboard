@@ -27,11 +27,11 @@ const DisableUserPopup = ({ open, onClose, onConfirm }) => {
 
       </DialogContent>
       <DialogActions style={{ display: 'flex', justifyContent: 'space-between', marginBottom:'15px', marginLeft:'16px', marginRight:'16px' }}>
-        <Button variant="contained" size="small" onClick={onClose} color="primary">
+        <Button variant="contained" size="small" onClick={onClose} color="primary" sx={{color:"white"}}>
           No, Cancel
         </Button>
         <Button variant="contained" size="small" onClick={onConfirm} color="error">
-          Yes, Disable
+          Yes, Delete
         </Button>
       </DialogActions>
     </Dialog>
