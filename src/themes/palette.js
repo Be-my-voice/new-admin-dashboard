@@ -39,10 +39,10 @@ export default function themePalette(theme) {
       dark: theme.colors?.warningDark
     },
     success: {
-      light: theme.colors?.successLight,
-      200: theme.colors?.success200,
-      main: theme.colors?.successMain,
-      dark: theme.colors?.successDark
+      light: '#5cb85c', // Light shade of success color
+      200: '#5cb85c', // A lighter shade for variation
+      main: '#22bb33', // Main success color
+      dark: '#289768' // Darker shade for contrast
     },
     grey: {
       50: theme.colors?.grey50,

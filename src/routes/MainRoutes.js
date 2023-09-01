@@ -30,6 +30,9 @@ const ViewIndividualLesson = Loadable(lazy(() => import('views/lesson/[lessonId]
 const ViewQuiz = Loadable(lazy(() => import('views/quiz/view-quiz')));
 const AddQuiz = Loadable(lazy(() => import('views/quiz/add-quiz')));
 
+// individual quiz routing
+const ViewIndividualQuiz = Loadable(lazy(() => import('views/quiz/[quizId]')));
+
 // user profile routing
 const UserProfile = Loadable(lazy(() => import('views/user/[userId]')));
 
@@ -69,15 +72,6 @@ const MainRoutes = {
           element: <ViewIndividualLesson />
         }
       ]
-    },    
-    {
-      path: 'quiz',
-      children: [
-        {
-          path: 'add-quiz',
-          element: <AddQuiz />
-        }
-      ]
     },
     {
       path: 'quiz',
@@ -85,6 +79,19 @@ const MainRoutes = {
         {
           path: 'view-quiz',
           element: <ViewQuiz />
+        },
+        {
+          path: ':quizId',
+          element: <ViewIndividualQuiz />
+        }
+      ]
+    },    
+    {
+      path: 'quiz',
+      children: [
+        {
+          path: 'add-quiz',
+          element: <AddQuiz />
         }
       ]
     },
