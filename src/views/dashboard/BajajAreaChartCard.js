@@ -39,12 +39,12 @@ const BajajAreaChartCard = () => {
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="subtitle1" sx={{ color: theme.palette.secondary.dark }}>
-                Bajaj Finery
+                2023
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="h4" sx={{ color: theme.palette.grey[800] }}>
-                $1839.00
+                Rs 183k
               </Typography>
             </Grid>
           </Grid>
