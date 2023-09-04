@@ -7,7 +7,7 @@ import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
+import SkeletonCurrentUsers from 'ui-component/cards/Skeleton/CurrentUsers';
 
 // assets
 import EarningIcon from 'assets/images/icons/earning.svg';
@@ -56,7 +56,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const CurrentUsers = ({ isLoading }) => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -72,7 +72,7 @@ const EarningCard = ({ isLoading }) => {
   return (
     <>
       {isLoading ? (
-        <SkeletonEarningCard />
+        <SkeletonCurrentUsers />
       ) : (
         <CardWrapper border={false} content={false}>
           <Box sx={{ p: 2.25 }}>
@@ -178,8 +178,8 @@ const EarningCard = ({ isLoading }) => {
   );
 };
 
-EarningCard.propTypes = {
+CurrentUsers.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default EarningCard;
+export default CurrentUsers;
