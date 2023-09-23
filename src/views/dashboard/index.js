@@ -12,9 +12,9 @@ import TotalPremiumUsersCard from './TotalPremiumUsersCard';
 import TotalIncomeGrowthBarChart from './TotalIncomeGrowthBarChart';
 import { gridSpacing } from 'store/constant';
 
-// ==============================|| DEFAULT DASHBOARD ||============================== //
+// ==============================|| OVERVIEW ||============================== //
 
-const Dashboard = () => {
+const Overview = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
@@ -56,4 +56,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Overview;
