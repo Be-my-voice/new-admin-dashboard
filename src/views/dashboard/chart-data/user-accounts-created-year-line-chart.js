@@ -1,4 +1,4 @@
-// ===========================|| DASHBOARD - TOTAL ORDER YEAR CHART ||=========================== //
+// ===========================|| DASHBOARD - USER ACCOUNTS CREATED CURRENT YEAR CHART ||=========================== //
 
 const chartData = {
   type: 'line',

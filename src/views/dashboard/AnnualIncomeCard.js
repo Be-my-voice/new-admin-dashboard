@@ -19,7 +19,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
-const PopularCard = ({ isLoading }) => {
+const AnnualIncomeCard = ({ isLoading }) => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -302,8 +302,8 @@ const PopularCard = ({ isLoading }) => {
   );
 };
 
-PopularCard.propTypes = {
+AnnualIncomeCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default PopularCard;
+export default AnnualIncomeCard;

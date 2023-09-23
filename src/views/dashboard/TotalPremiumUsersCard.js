@@ -6,7 +6,7 @@ import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Typography }
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import TotalUsersCard from 'ui-component/cards/Skeleton/TotalUsersCard';
 
 // assets
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
@@ -37,15 +37,15 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-// ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
+// ==============================|| DASHBOARD - TOTAL PREMIUM USERS CARD ||============================== //
 
-const TotalIncomeLightCard = ({ isLoading }) => {
+const TotalPremiumUsersCard = ({ isLoading }) => {
   const theme = useTheme();
 
   return (
     <>
       {isLoading ? (
-        <TotalIncomeCard />
+        <TotalUsersCard />
       ) : (
         <CardWrapper border={false} content={false}>
           <Box sx={{ p: 2 }}>
@@ -92,8 +92,8 @@ const TotalIncomeLightCard = ({ isLoading }) => {
   );
 };
 
-TotalIncomeLightCard.propTypes = {
+TotalPremiumUsersCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalIncomeLightCard;
+export default TotalPremiumUsersCard;

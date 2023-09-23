@@ -1,4 +1,4 @@
-// ===========================|| DASHBOARD - TOTAL ORDER MONTH CHART ||=========================== //
+// ===========================|| DASHBOARD - USER ACCOUNTS CREATED CURRENT MONTH CHART ||=========================== //
 
 const chartData = {
   type: 'line',

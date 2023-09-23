@@ -12,8 +12,8 @@ import Chart from 'react-apexcharts';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/CurrentUsers';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-import ChartDataYear from './chart-data/total-order-year-line-chart';
+import ChartDataMonth from './chart-data/user-accounts-created-month-line-chart';
+import ChartDataYear from './chart-data/user-accounts-created-year-line-chart';
 
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
@@ -61,9 +61,9 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
   }
 }));
 
-// ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
+// ==============================|| DASHBOARD - USER ACCOUNTS CREATED CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading }) => {
+const UserAccountsCreatedCard = ({ isLoading }) => {
   const theme = useTheme();
 
   const [timeValue, setTimeValue] = useState(false);
@@ -166,8 +166,8 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
   );
 };
 
-TotalOrderLineChartCard.propTypes = {
+UserAccountsCreatedCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalOrderLineChartCard;
+export default UserAccountsCreatedCard;

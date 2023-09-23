@@ -11,12 +11,12 @@ import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 
 // project imports
-import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
+import SkeletonTotalIncomeGrowthBarChart from 'ui-component/cards/Skeleton/TotalIncomeGrowthBarChart';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
 
 // chart data
-import chartData from './chart-data/total-growth-bar-chart';
+import chartData from './chart-data/total-income-growth-bar-chart';
 
 const status = [
   {
@@ -33,9 +33,9 @@ const status = [
   }
 ];
 
-// ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
+// ==============================|| DASHBOARD DEFAULT - TOTAL INCOME GROWTH BAR CHART ||============================== //
 
-const TotalGrowthBarChart = ({ isLoading }) => {
+const TotalIncomeGrowthBarChart = ({ isLoading }) => {
   const [value, setValue] = useState('today');
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
@@ -91,7 +91,7 @@ const TotalGrowthBarChart = ({ isLoading }) => {
   return (
     <>
       {isLoading ? (
-        <SkeletonTotalGrowthBarChart />
+        <SkeletonTotalIncomeGrowthBarChart />
       ) : (
         <MainCard>
           <Grid container spacing={gridSpacing}>
@@ -128,8 +128,8 @@ const TotalGrowthBarChart = ({ isLoading }) => {
   );
 };
 
-TotalGrowthBarChart.propTypes = {
+TotalIncomeGrowthBarChart.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalGrowthBarChart;
+export default TotalIncomeGrowthBarChart;

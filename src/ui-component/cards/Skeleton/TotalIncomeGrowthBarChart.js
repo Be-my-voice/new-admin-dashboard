@@ -5,9 +5,9 @@ import Skeleton from '@mui/material/Skeleton';
 // project imports
 import { gridSpacing } from 'store/constant';
 
-// ==============================|| SKELETON TOTAL GROWTH BAR CHART ||============================== //
+// ==============================|| SKELETON TOTAL INCOME GROWTH BAR CHART ||============================== //
 
-const TotalGrowthBarChart = () => (
+const TotalIncomeGrowthBarChart = () => (
   <Card>
     <CardContent>
       <Grid container spacing={gridSpacing}>
@@ -36,4 +36,4 @@ const TotalGrowthBarChart = () => (
   </Card>
 );
 
-export default TotalGrowthBarChart;
+export default TotalIncomeGrowthBarChart;
