@@ -35,7 +35,7 @@ const ChangePriceCard = () => {
               onClick={openModal}
               sx={{
                 marginTop: 2,
-                color: '#147B72', // Text color
+                color: '#black', // Text color
                 borderColor: '#147B72', // Border color
                 backgroundColor: '#fff', // Background color
                 borderWidth: 5, // Increase border thickness
