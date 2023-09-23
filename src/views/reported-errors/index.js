@@ -25,18 +25,18 @@ const ErrorReports = ({ isLoading }) => {
   const errorReports = [
     {
       id: 1,
-      username: 'User1',
+      username: 'Sivakarthikeyan Doss',
       issue: 'The front camera doesn’t work ',
       description: 'This is a detailed description of the issue...',
-      timestamp: '2023-09-23 10:00 AM',
+      timestamp: '2023-09-23',
       uploadedMedia: 'media-file.jpg', // Example media file name
     },
     {
       id: 2,
-      username: 'User2',
+      username: 'Rushdha Rasheed',
       issue: 'The front camera doesn’t work ',
       description: 'Another detailed description of the issue...',
-      timestamp: '2023-09-23 11:30 AM',
+      timestamp: '2023-09-23',
       uploadedMedia: 'media-file.png', // Example media file name
     },
     // Add more error reports here
