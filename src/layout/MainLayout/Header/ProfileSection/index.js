@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -43,12 +44,17 @@ const ProfileSection = () => {
   const customization = useSelector((state) => state.customization);
   const [selectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   /**
    * anchorRef is used on different componets and specifying one type leads to other components throwing an error
    * */
   const anchorRef = useRef(null);
   const handleLogout = async () => {
-    console.log('Logout');
+  // Clear user session (e.g., by removing tokens or cookies)
+  // ..
+  
+  // Redirect to the login page
+  navigate('/');
   };
 
   const handleClose = (event) => {
