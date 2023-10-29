@@ -57,6 +57,9 @@ const ViewIndividualLesson = () => {
           Lesson: {lesson.title}
         </Typography>
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+        <Button variant="contained" color="secondary" sx={{ color: 'white' }} onClick={handleAddSectionButtonClick}>
+            Add New Section
+          </Button>
           <Button variant="contained" color="primary" sx={{paddingLeft: '35px', paddingRight: '35px', color: 'white', }} onClick={handleEditButtonClick}>
             Edit Title
           </Button>

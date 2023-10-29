@@ -1,8 +1,8 @@
 // assets
-import { IconBook } from '@tabler/icons'; 
+import { IconBook } from '@tabler/icons';
 
 // constant
-const icons = { IconBook }; 
+const icons = { IconBook };
 
 const pages = {
   id: 'pages',
@@ -11,25 +11,11 @@ const pages = {
     {
       id: 'lesson',
       title: 'Lesson',
-      type: 'collapse',
-      icon: icons.IconBook, 
-
-      children: [
-        {
-          id: 'viewLesson',
-          title: 'View Lessons',
-          type: 'item',
-          url: '/lesson/view-lesson/', 
-        },
-        {
-          id: 'addLesson',
-          title: 'Add New Lesson',
-          type: 'item',
-          url: '/lesson/add-lesson/', 
-        }
-      ]
-    }
-  ]
+      type: 'item', 
+      icon: icons.IconBook,
+      url: '/lesson/view-lesson/', 
+    },
+  ],
 };
 
 export default pages;
