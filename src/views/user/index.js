@@ -6,6 +6,7 @@ import SearchSection from '../../layout/MainLayout/Header/SearchSection';
 import logo from 'assets/images/defaultUser.png';
 import DisableUserPopup from './DisableUserPopup';
 import { Link } from 'react-router-dom';
+import withAuth from '../withAuth'; // Import the withAuth HOC
 
 const user = {
   userId: 'user125', 
@@ -97,4 +98,4 @@ const UtilitiesShadow = () => (
   </MainCard>
 );
 
-export default UtilitiesShadow;
+export default withAuth(UtilitiesShadow);

@@ -50,11 +50,10 @@ const ProfileSection = () => {
    * */
   const anchorRef = useRef(null);
   const handleLogout = async () => {
-  // Clear user session (e.g., by removing tokens or cookies)
-  // ..
-  
-  // Redirect to the login page
-  navigate('/');
+    //const token = localStorage.getItem('token');
+    //console.log('Logging out with token:', token);
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   const handleClose = (event) => {
