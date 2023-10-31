@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button, Modal, Box, TextField } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
+import withAuth from '../withAuth';
 
 const ChangePassword = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -133,4 +134,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default withAuth(ChangePassword);

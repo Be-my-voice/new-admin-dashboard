@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import withAuth from '../withAuth';
 
 // material-ui
 import { Grid } from '@mui/material';
@@ -56,4 +57,5 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default withAuth(Overview);
+

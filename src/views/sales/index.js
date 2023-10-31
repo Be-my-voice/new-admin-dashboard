@@ -17,6 +17,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalSalesCard from './TotalSalesCard'; 
 import DailySalesChart from './DailySalesChart';
 import ChangePriceCard from './ChangePriceCard';
+import withAuth from '../withAuth';
 
 const CardWrapper = MainCard;
 
@@ -34,7 +35,7 @@ const Sales = ({ isLoading }) => {
     },
     {
       id: 2,
-      username: 'Sivakarhtikeyan Doss',
+      username: 'Sivakarthikeyan Doss',
       amount: 2000,
       status: 'Paid',
       datePaid: '2023-09-24',
@@ -124,4 +125,4 @@ const Sales = ({ isLoading }) => {
   );
 };
 
-export default Sales;
+export default withAuth(Sales);
