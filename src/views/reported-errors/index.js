@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import withAuth from '../withAuth';
 
 // material-ui
 import { 
@@ -145,4 +146,4 @@ const ErrorReports = ({ isLoading }) => {
   );
 };
 
-export default ErrorReports;
+export default withAuth(ErrorReports);

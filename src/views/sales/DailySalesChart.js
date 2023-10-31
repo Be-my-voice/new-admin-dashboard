@@ -32,11 +32,11 @@ const DailySalesChart = () => {
         <Tooltip />
 
         {/* Bars */}
-        <Bar dataKey="amount" fill="#147B72" />
+        <Bar dataKey="amount" fill="#FFFFFF" />
 
         {/* Graph Heading */}
         <text x="50%" y="10" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#000">
-          Weekly Sales
+          Daily Sales
         </text>
       </BarChart>
     </ResponsiveContainer>
