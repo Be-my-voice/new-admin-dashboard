@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Card, Box, Grid, Toolbar, Typography, Divider, Button } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
-import AddQuizPopup from './AddQuizPopup'; // Import your AddQuizPopup component
+import AddQuizPopup from './AddQuizPopup'; 
 import { Link } from 'react-router-dom';
+import withAuth from '../withAuth';
 
 const UtilitiesShadow = () => {
   const [isAddQuizDialogOpen, setAddQuizDialogOpen] = useState(false);
@@ -82,4 +83,5 @@ const ShadowBox = ({ quiz }) => (
   </Card>
 );
 
-export default UtilitiesShadow;
+// export default UtilitiesShadow;
+export default withAuth(UtilitiesShadow);

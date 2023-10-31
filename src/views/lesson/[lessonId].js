@@ -7,6 +7,7 @@ import AddSectionPopup from './AddSectionPopup';
 import DeleteLessonPopup from './DeleteLessonPopup';
 import EditLessonTitlePopup from './EditLessonTitlePopup';
 import DeleteSectionPopup from './DeleteSectionPopup';
+import withAuth from '../withAuth'; 
 
 const ViewIndividualLesson = () => {
   // const { lessonId } = useParams();
@@ -119,4 +120,5 @@ const ViewIndividualLesson = () => {
   );
 };
 
-export default ViewIndividualLesson;
+// export default ViewIndividualLesson;
+export default withAuth(ViewIndividualLesson);

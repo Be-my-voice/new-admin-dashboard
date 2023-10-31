@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import withAuth from '../withAuth'; 
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -100,4 +101,4 @@ TotalIncomeLightCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalIncomeLightCard;
+export default withAuth(TotalIncomeLightCard);

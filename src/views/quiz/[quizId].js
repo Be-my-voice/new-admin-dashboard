@@ -7,6 +7,7 @@ import AddQuestionPopup from './AddQuestionPopup';
 import DeleteQuizPopup from './DeleteQuizPopup';
 import EditQuizTitlePopup from './EditQuizTitlePopup';
 import DeleteQuestionPopup from './DeleteQuestionPopup';
+import withAuth from '../withAuth'; 
 
 const ViewIndividualQuiz = () => {
   // const { quizId } = useParams();
@@ -160,4 +161,5 @@ const ViewIndividualQuiz = () => {
   );
 };
 
-export default ViewIndividualQuiz;
+// export default ViewIndividualQuiz;
+export default withAuth(ViewIndividualQuiz);

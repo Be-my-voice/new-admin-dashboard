@@ -6,6 +6,7 @@ import ScreenTime from '../user/ScreenTime';
 import WordsTranslated from '../user/wordsTranslated';
 import DisableUserPopup from './DisableUserPopup';
 import { gridSpacing } from 'store/constant';
+import withAuth from '../withAuth'; 
 
 const UserProfile = () => {
 
@@ -157,4 +158,5 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+// export default UserProfile;
+export default withAuth(UserProfile);
