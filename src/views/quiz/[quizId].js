@@ -7,6 +7,7 @@ import AddQuestionPopup from './AddQuestionPopup';
 import DeleteQuizPopup from './DeleteQuizPopup';
 import EditQuizTitlePopup from './EditQuizTitlePopup';
 import DeleteQuestionPopup from './DeleteQuestionPopup';
+import EditQuestionPopup from './EditQuestionPopup';
 import withAuth from '../withAuth';
 import { Backdrop, CircularProgress } from '@mui/material';
 
@@ -20,6 +21,25 @@ const ViewIndividualQuiz = () => {
   const [quiz, setQuiz] = useState({ quizName: '' });
   const [questions, setQuestions] = useState([]);
   const [questionIdToDelete, setQuestionIdToDelete] = useState(null);
+  const [showEditQuestionPopup, setShowEditQuestionPopup] = useState(false);
+  const [questionDataToEdit, setQuestionDataToEdit] = useState(null);
+
+  const handleEditQuestionButtonClick = (questionId, question, answer1, answer2, answer3, answer4, correctAnswer) => {
+    const questionData = {
+      id: questionId,
+      question: question,
+      answer1: answer1,
+      answer2: answer2,
+      answer3: answer3,
+      answer4: answer4,
+      correctAnswer: correctAnswer,
+    };
+  
+    setQuestionDataToEdit(questionData);
+    //console.log(questionData);
+    setShowEditQuestionPopup(true);
+  };
+  
   const [loading, setLoading] = useState(false);
 
   const fetchQuizTitle = async () => {
@@ -35,6 +55,7 @@ const ViewIndividualQuiz = () => {
       console.error('Error fetching quiz title:', error);
     }
   };
+
   const fetchQuestions = async () => {
     setLoading(true);
     try {
@@ -79,6 +100,7 @@ const ViewIndividualQuiz = () => {
     setShowEditPopup(false);
     setShowDeleteQuestionPopup(false);
     setShowAddQuestionPopup(false);
+    setShowEditQuestionPopup(false);
   };
 
   return (
@@ -179,8 +201,7 @@ const ViewIndividualQuiz = () => {
                       variant="outlined"
                       color="primary"
                       sx={{ width: '100px', border: '1px solid' }}
-                      onClick={handleAddQuestionButtonClick}
-                    >
+                      onClick={() => handleEditQuestionButtonClick(question.id, question.question, question.answer1, question.answer2, question.answer3, question.answer4, question.correctAnswer)}>
                       Edit
                     </Button>
                     <Button
@@ -220,6 +241,7 @@ const ViewIndividualQuiz = () => {
         <EditQuizTitlePopup open={showEditPopup} onClose={handleClosePopup}  quizId={quizId} existingTitle={quiz.quizName}/>
         <DeleteQuestionPopup open={showDeleteQuestionPopup} onClose={handleClosePopup} questionId={questionIdToDelete}/>
         <AddQuestionPopup open={showAddQuestionPopup} onClose={handleClosePopup} quizId={quizId}  />
+        <EditQuestionPopup open={showEditQuestionPopup} onClose={handleClosePopup} questionData={questionDataToEdit}/>
         </>
         <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
           <CircularProgress color="inherit" />
