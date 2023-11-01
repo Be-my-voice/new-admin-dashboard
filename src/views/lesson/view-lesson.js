@@ -15,11 +15,49 @@ const UtilitiesShadow = () => {
     setAddLessonDialogOpen(false);
   };
 
-  const handleDisableLesson = (lesson) => {
-    console.log(`Disabling lesson: ${lesson.title}`);
+  const handleToggleLesson = (lesson) => {
+    if (lesson.enabled) {
+      disableLesson(lesson.id);
+    } else {
+      enableLesson(lesson.id);
+    }
   };
 
-  useEffect(() => {
+  const enableLesson = (lessonId) => {
+    fetch(`http://172.190.66.169:8003/api/enable-lesson/${lessonId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Lesson enabled:', data);
+        fetchLessons();
+      })
+      .catch((error) => {
+        console.error('Error enabling lesson:', error);
+      });
+  };
+
+  const disableLesson = (lessonId) => {
+    fetch(`http://172.190.66.169:8003/api/disable-lesson/${lessonId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Lesson disabled:', data);
+        fetchLessons();
+      })
+      .catch((error) => {
+        console.error('Error disabling lesson:', error);
+      });
+  };
+
+  const fetchLessons = () => {
     fetch('http://172.190.66.169:8003/api/get-all-lessons', {
       method: 'GET',
       headers: {
@@ -28,7 +66,7 @@ const UtilitiesShadow = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Lesson data from API:', data); 
+        console.log('Lesson data from API:', data);
         if (Array.isArray(data)) {
           setLessons(data);
         }
@@ -36,6 +74,10 @@ const UtilitiesShadow = () => {
       .catch((error) => {
         console.error('Error fetching lesson data:', error);
       });
+  };
+
+  useEffect(() => {
+    fetchLessons();
   }, []);
 
   return (
@@ -55,7 +97,7 @@ const UtilitiesShadow = () => {
       <Grid container spacing={gridSpacing} mt={2}>
         {lessons.map((lesson, index) => (
           <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-            <ShadowBox lesson={lesson} handleDisableLesson={handleDisableLesson} />
+            <ShadowBox lesson={lesson} handleToggleLesson={handleToggleLesson} />
           </Grid>
         ))}
       </Grid>
@@ -68,7 +110,7 @@ const UtilitiesShadow = () => {
   );
 };
 
-const ShadowBox = ({ lesson, handleDisableLesson }) => (
+const ShadowBox = ({ lesson, handleToggleLesson }) => (
   <Card sx={{ mb: 3, boxShadow: 5 }}>
     <Box
       sx={{
@@ -86,16 +128,27 @@ const ShadowBox = ({ lesson, handleDisableLesson }) => (
         },
       }}
     >
-      <Typography variant="h6" component="div" mt={2}>
+      <Typography variant="h4" component="div" mt={2}>
         {lesson.title}
       </Typography>
       <Link to={`/lesson/${lesson.id}`} style={{ textDecoration: 'none' }}>
-        <Button variant="contained" color="primary" size="small" sx={{ mt: 2, px: 4 }}>
+        <Button variant="contained" style={{background:'white', color:'#22bb33', border: '2px solid #5cb85c'}} size="small" sx={{ mt: 1, px: 4 }}>
           View Lesson
         </Button>
       </Link>
-     <Button variant="contained" color="error" size="small" sx={{ mt: 2, px: 3 }} onClick={() => handleDisableLesson(lesson)}>
-        Disable Lesson
+      <Button
+          variant="contained"
+          size="small"
+          sx={{mt: 2, px: 3,
+            backgroundColor: lesson.enabled ? 'red' : 'green',
+            '&:hover': {
+              backgroundColor: lesson.enabled ? 'darkred' : 'darkgreen', 
+            },
+          }}
+          onClick={() => handleToggleLesson(lesson)}
+          style={{ color: 'white' }} 
+        >
+        {lesson.enabled ? 'Disable Lesson' : 'Enable Lesson'}
       </Button>
     </Box>
   </Card>

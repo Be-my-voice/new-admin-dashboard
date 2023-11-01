@@ -8,7 +8,6 @@ const withAuth = (WrappedComponent) => {
     useEffect(() => {
       const token = localStorage.getItem('token');
       if (!token) {
-        // No token, redirect to login page or wherever you want
         navigate('/');
       }
     }, [navigate]);

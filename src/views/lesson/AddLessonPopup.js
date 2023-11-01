@@ -12,9 +12,27 @@ const AddLessonPopup = ({ open, onClose, onAddLesson }) => {
   const [lessonTitle, setLessonTitle] = useState('');
 
   const handleAddLesson = () => {
-    onAddLesson(lessonTitle);
-    onClose();
+    fetch('http://172.190.66.169:8003/api/create-lesson', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: lessonTitle,
+        enabled: true,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('New Lesson created:', data);
+        onAddLesson(data.title); 
+        onClose();
+      })
+      .catch((error) => {
+        console.error('Error creating lesson:', error);
+      });
   };
+  
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
