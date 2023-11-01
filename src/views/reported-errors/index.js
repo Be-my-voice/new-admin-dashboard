@@ -134,7 +134,7 @@ const ErrorReports = ({ isLoading }) => {
     <Grid item xs={12} md={12} lg={12}>
       <Card>
         <CardContent>
-          <Typography variant="h6" component="div">
+          <Typography variant="h4" component="div">
             Error Reports
           </Typography>
           {isLoading ? (

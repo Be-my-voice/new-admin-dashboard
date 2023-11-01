@@ -8,6 +8,7 @@ const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [resetMessage, setResetMessage] = useState(''); // State for response message
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -17,10 +18,35 @@ const ChangePassword = () => {
     setIsModalOpen(false);
   };
 
-  const handleChangePassword = () => {
-    // You can implement the logic to change the password here
-    console.log(`Changing password...`);
-    closeModal();
+  // const handleChangePassword = () => {
+  //   // You can implement the logic to change the password here
+  //   console.log(`Changing password...`);
+  //   closeModal();
+  // };
+
+  const resetPassword = async () => {
+    try {
+      // Send a POST request to reset the password
+      const response = await fetch('http://172.190.66.169:8006/users/reset-password', {
+        method: 'POST',
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userEmail: currentPassword, // Provide the user's email
+          newPassword: newPassword, // Provide the new password
+        }),
+      });
+
+      const data = await response.json();
+
+      // Set the response message
+      setResetMessage(data.message);
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      setResetMessage('Password reset failed'); // Handle errors here
+    }
   };
 
   return (
@@ -115,7 +141,7 @@ const ChangePassword = () => {
               </Button>
             </Box>
             <Button
-              onClick={handleChangePassword}
+              onClick={resetPassword}
               variant="contained"
               color="success"
               sx={{
@@ -123,11 +149,19 @@ const ChangePassword = () => {
                 borderColor: '#147B72',
                 backgroundColor: '#fff',
                 borderWidth: 2,
-              }}
+                '&:hover': {
+                  color: '#fff', // Font color when hovered
+                  backgroundColor: '#147B72', // Background color when hovered
+              }}}
             >
               Change Password
             </Button>
           </Box>
+          {resetMessage && (
+            <Typography sx={{ mt: 2, color: resetMessage === 'Password reset successfully' ? 'green' : 'red' }}>
+              {resetMessage}
+            </Typography>
+          )}
         </Box>
       </Modal>
     </>

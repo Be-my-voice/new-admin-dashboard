@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -17,7 +17,6 @@ import ChartDataYear from './chart-data/user-accounts-created-year-line-chart';
 
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
@@ -65,13 +64,38 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const UserAccountsCreatedCard = ({ isLoading }) => {
   const theme = useTheme();
+  const [newUsersCount, setNewUsersCount] = useState(null);
+  const [timeValue] = useState(false);
+  // const handleChangeTime = (event, newValue) => {
+  //   setTimeValue(newValue);
+  // };
 
-  const [timeValue, setTimeValue] = useState(false);
-  const handleChangeTime = (event, newValue) => {
-    setTimeValue(newValue);
+  const getNewUsersCount = () => {
+    fetch('http://172.190.66.169:8006/users/new-users-count/year', {
+      method: 'GET',
+      headers: {
+        'accept': '*/*',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data here
+        setNewUsersCount(data.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching new users count:', error);
+      });
   };
 
+  useEffect(() => {
+    // Fetch the data for the "Year" filter on component mount
+    getNewUsersCount();
+  }, []);
 
+  // const handleChangeTime = (filter) => {
+  //   setTimeValue(filter === 'year');
+  //   getNewUsersCount(filter);
+  // };
 
   return (
     <>
@@ -100,21 +124,14 @@ const UserAccountsCreatedCard = ({ isLoading }) => {
                   <Grid item>
                     <Button
                       disableElevation
-                      variant={timeValue ? 'contained' : 'text'}
-                      size="small"
-                      sx={{ color: 'inherit' }}
-                      onClick={(e) => handleChangeTime(e, true)}
-                    >
-                      Month
-                    </Button>
-                    <Button
-                      disableElevation
                       variant={!timeValue ? 'contained' : 'text'}
                       size="small"
                       sx={{ color: 'inherit' }}
-                      onClick={(e) => handleChangeTime(e, false)}
+                      onClick={() => {
+                        getNewUsersCount('year'); // Fetch data for the "Month" filter
+                      }}
                     >
-                      Year
+                      This Year
                     </Button>
                   </Grid>
                 </Grid>
@@ -124,11 +141,7 @@ const UserAccountsCreatedCard = ({ isLoading }) => {
                   <Grid item xs={6}>
                     <Grid container alignItems="center">
                       <Grid item>
-                        {timeValue ? (
-                          <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>28</Typography>
-                        ) : (
-                          <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>121</Typography>
-                        )}
+                        <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>{newUsersCount}</Typography>
                       </Grid>
                       <Grid item>
                         <Avatar
@@ -139,7 +152,6 @@ const UserAccountsCreatedCard = ({ isLoading }) => {
                             color: theme.palette.primary.dark
                           }}
                         >
-                          <ArrowDownwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
                         </Avatar>
                       </Grid>
                       <Grid item xs={12}>

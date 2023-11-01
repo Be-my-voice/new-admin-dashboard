@@ -71,7 +71,7 @@ const Sales = ({ isLoading }) => {
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            <Typography variant="h6" component="div">
+            <Typography variant="h4" component="div">
               Payments Due This Month
             </Typography>
             {isLoading ? (
