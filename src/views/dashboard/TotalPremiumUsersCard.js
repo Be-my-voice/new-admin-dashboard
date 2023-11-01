@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -41,6 +42,31 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const TotalPremiumUsersCard = ({ isLoading }) => {
   const theme = useTheme();
+  const [totalPremiumUsers, setTotalPremiumUsers] = useState(null);
+
+  useEffect(() => {
+    // Make the API request to get the total premium users count
+    fetch('http://172.190.66.169:8006/users/premium-users-count', {
+      method: 'GET',
+      headers: {
+        'accept': '*/*',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error('Network response was not ok:', response.status);
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Assuming the total premium users count is in data.data[0]
+        setTotalPremiumUsers(data.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching total premium users count:', error);
+      });
+  }, []);
 
   return (
     <>
@@ -70,7 +96,9 @@ const TotalPremiumUsersCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">50</Typography>}
+                  primary={<Typography variant="h4">
+                    {totalPremiumUsers !== null ? totalPremiumUsers : 'Loading...'}
+                  </Typography>}
                   secondary={
                     <Typography
                       variant="subtitle2"

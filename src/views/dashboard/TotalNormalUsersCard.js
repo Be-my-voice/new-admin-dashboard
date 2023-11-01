@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -43,6 +44,30 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const TotalNormalUsersCard = ({ isLoading }) => {
   const theme = useTheme();
+  const [totalNormalUsers, setTotalNormalUsers] = useState(null);
+  useEffect(() => {
+    // Make the API request to get the total normal users count
+    fetch('http://172.190.66.169:8006/users/normal-users-count', {
+      method: 'GET',
+      headers: {
+        'accept': '*/*',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error('Network response was not ok:', response.status);
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Assuming the total normal users count is in data.data[0]
+        setTotalNormalUsers(data.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching total normal users count:', error);
+      });
+  }, []);
 
   return (
     <>
@@ -74,7 +99,7 @@ const TotalNormalUsersCard = ({ isLoading }) => {
                   }}
                   primary={
                     <Typography variant="h4" sx={{ color: '#fff' }}>
-                      102
+                      {totalNormalUsers !== null ? totalNormalUsers : 'Loading...'}
                     </Typography>
                   }
                   secondary={

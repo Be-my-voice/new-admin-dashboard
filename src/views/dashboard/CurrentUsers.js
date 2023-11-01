@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -58,7 +58,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const CurrentUsers = ({ isLoading }) => {
   const theme = useTheme();
-
+  const [userCount, setUserCount] = useState(null); // Initialize userCount state
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -68,6 +68,32 @@ const CurrentUsers = ({ isLoading }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    // Make the API request to get the current user count
+    fetch('http://172.190.66.169:8006/users/current-users-count', {
+      method: 'GET',
+      headers: {
+        'accept': '*/*',
+      },
+    })
+    .then((response) => {
+      if (!response.ok) {
+        console.error('Network response was not ok:', response.status);
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Assuming the user count is in data.data[0]
+      setUserCount(data.data[0]);
+      console.log('hello', data.data[0]);
+    })
+    .catch((error) => {
+      console.error('Error fetching user count:', error);
+    });
+  }, []);
+
 
   return (
     <>
@@ -143,7 +169,9 @@ const CurrentUsers = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>152</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                    {userCount !== null ? userCount : 'Loading...'}
+                      </Typography>
                   </Grid>
                   <Grid item>
                     <Avatar

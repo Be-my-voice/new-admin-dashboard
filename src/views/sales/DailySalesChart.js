@@ -7,6 +7,7 @@ import {
   YAxis,
   Tooltip,
 } from 'recharts';
+import withAuth from '../withAuth';
 
 const data = [
   { day: 'M', amount: 200 },
@@ -43,4 +44,4 @@ const DailySalesChart = () => {
   );
 };
 
-export default DailySalesChart;
+export default withAuth(DailySalesChart);
