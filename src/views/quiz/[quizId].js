@@ -8,6 +8,7 @@ import DeleteQuizPopup from './DeleteQuizPopup';
 import EditQuizTitlePopup from './EditQuizTitlePopup';
 import DeleteQuestionPopup from './DeleteQuestionPopup';
 import withAuth from '../withAuth';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const ViewIndividualQuiz = () => {
   const { quizId } = useParams();
@@ -19,8 +20,10 @@ const ViewIndividualQuiz = () => {
   const [quiz, setQuiz] = useState({ quizName: '' });
   const [questions, setQuestions] = useState([]);
   const [questionIdToDelete, setQuestionIdToDelete] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchQuizTitle = async () => {
+    
     try {
       const response = await fetch(`http://172.190.66.169:8003/api/quiz/get-quiz-by-id/${quizId}`);
       if (!response.ok) {
@@ -33,6 +36,7 @@ const ViewIndividualQuiz = () => {
     }
   };
   const fetchQuestions = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`http://172.190.66.169:8003/api/question/get-questions-by-quiz-id/${quizId}`);
       if (!response.ok) {
@@ -43,6 +47,8 @@ const ViewIndividualQuiz = () => {
       setQuestions(data);
     } catch (error) {
       console.error('Error fetching questions:', error);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -215,6 +221,9 @@ const ViewIndividualQuiz = () => {
         <DeleteQuestionPopup open={showDeleteQuestionPopup} onClose={handleClosePopup} questionId={questionIdToDelete}/>
         <AddQuestionPopup open={showAddQuestionPopup} onClose={handleClosePopup} quizId={quizId}  />
         </>
+        <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
     </MainCard>
   );
 };

@@ -12,6 +12,8 @@ import {
   FormLabel,
   Grid,
 } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
+
 
 const AddQuestionPopup = ({ open, onClose, quizId }) => {
   const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -22,6 +24,7 @@ const AddQuestionPopup = ({ open, onClose, quizId }) => {
   const [answer4, setAnswer4] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const videoInputRef = useRef(null);
+  const [loading, setLoading] = useState(false); //add this to control the loading screen
 
   const handleRadioChange = (event) => {
     setCorrectAnswer(event.target.value);
@@ -45,12 +48,13 @@ const AddQuestionPopup = ({ open, onClose, quizId }) => {
     onClose();
   };
 
-  const handleSubmit = () => {
-  
+  const handleSubmit = async(e) =>{
+    e.preventDefault();
+    setLoading(true); //enable the loading screen
     //console.log('Data:', data);
     //console.log('Data (JSON):', JSON.stringify(data));
-  
-    fetch(`http://172.190.66.169:8003/api/question/create-question`, {
+    console.log("uploading");
+    await fetch(`http://172.190.66.169:8003/api/question/create-question`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,12 +76,13 @@ const AddQuestionPopup = ({ open, onClose, quizId }) => {
       })
       .then((data) => {
         console.log('New question details:', data);
-        onClose();
+        window.location.reload(); //refresh the window when the request is done
       })
       .catch((error) => {
         console.error('Error creating question:', error);
       });
-  };
+      console.log("upload done");
+  }
   
   
   
@@ -202,6 +207,10 @@ const AddQuestionPopup = ({ open, onClose, quizId }) => {
             </Button>
           </div>
         </form>
+        {/* this is the loading screen. go to onSubmit function to see more magic */}
+        <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </DialogContent>
     </Dialog>
   );
