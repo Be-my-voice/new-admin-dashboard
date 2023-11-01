@@ -29,7 +29,7 @@ const ChangePassword = () => {
         <Card>
           <CardContent>
             <Typography variant="h2" component="div" sx={{ color: '#147B72' }}>
-              Secure your account by updating the password
+              Assist users by updating their password
             </Typography>
             <Button
               variant="contained"
@@ -72,7 +72,7 @@ const ChangePassword = () => {
           </Typography>
           <TextField
             type="password"
-            label="Current Password"
+            label="User Email"
             variant="outlined"
             fullWidth
             value={currentPassword}
