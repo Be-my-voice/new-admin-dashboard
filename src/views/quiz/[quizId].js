@@ -196,7 +196,7 @@ const ViewIndividualQuiz = () => {
                     </Button>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space around', marginTop: '1rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '1rem' }}>
                     <Button
                       variant="outlined"
                       color="primary"
