@@ -9,15 +9,17 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // uploaded only name of file, cuz idk what to upload!
-      const videoName = file.name;
-      setVideo(videoName);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Video = e.target.result.split(',')[1];
+        setVideo(base64Video);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("lesson::", lessonId);
   
     fetch('http://172.190.66.169:8003/api/create-lesson-section', {
       method: 'POST',
@@ -28,7 +30,7 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
         lessonId: lessonId,
         sectionName: sectionName,
         sectionDescription: sectionDescription,
-        video: video,
+        video: video, // Use the base64-encoded video data
       }),
     })
       .then((response) => response.json())
@@ -40,7 +42,6 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
         console.error('Error creating section:', error);
       });
   };
-  
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -81,8 +82,8 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
                   width: '100%',
                   padding: '12px 16px',
                   fontSize: '14px',
-                  background:'#Fafafa', 
-                  marginTop: '16px'
+                  background: '#Fafafa',
+                  marginTop: '16px',
                 }}
                 onChange={handleVideoChange}
               />

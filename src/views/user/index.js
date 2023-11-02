@@ -2,18 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Box, Card, Grid, Toolbar, Typography, Divider, Button } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
-import SearchSection from '../../layout/MainLayout/Header/SearchSection';
+//import SearchSection from '../../layout/MainLayout/Header/SearchSection';
 import logo from 'assets/images/defaultUser.png';
 import DisableUserPopup from './DisableUserPopup';
 import { Link } from 'react-router-dom';
 import withAuth from '../withAuth';
 
-const ShadowBox = ({ user }) => {
+const ShadowBox = ({ user, handleToggleUser }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const handleDisableClick = () => {
-    setDialogOpen(true);
-  };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
@@ -36,9 +32,8 @@ const ShadowBox = ({ user }) => {
           color: 'grey.800',
         }}
       >
-        {/* User Image */}
-        {/* if empty or string, it'll display default dp */}
-        <img src={user.profilePictureUrl === '' || user.profilePictureUrl === 'string' ? logo : user.profilePictureUrl} alt="User" style={{ width: '100px', height: '100px', borderRadius: '50%' }}/>
+        {/* Default User Image */}
+        <img src={logo} alt="User" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
 
         {/* User Name */}
         <Typography variant="h6" component="div" mt={2}>
@@ -51,15 +46,28 @@ const ShadowBox = ({ user }) => {
         </Typography>
 
         {/* View Profile Button */}
-        <Link to={`/user/${user.userID}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/user/${user.id}`} style={{ textDecoration: 'none' }}>
           <Button variant="contained" color="primary" size="small" sx={{ mt: 2, px: 8 }}>
             View Profile
           </Button>
         </Link>
 
-        {/* Disable User Button */}
-        <Button variant="contained" color="error" size="small" sx={{ mt: 2, px: 8 }} onClick={handleDisableClick}>
-          Disable User
+        {/* Toggle User Button */}
+        <Button
+          variant="contained"
+          size="small"
+          sx={{
+            mt: 2,
+            px: 3,
+            backgroundColor: user.userStatus === 'ENABLED' ? 'green' : 'red',
+            '&:hover': {
+              backgroundColor: user.userStatus === 'ENABLED' ? 'darkgreen' : 'darkred',
+            },
+          }}
+          onClick={() => handleToggleUser(user)}
+          style={{ color: 'white' }}
+        >
+          {user.userStatus === 'ENABLED' ? 'Disable User' : 'Enable User'}
         </Button>
 
         <DisableUserPopup open={dialogOpen} onClose={handleCloseDialog} onConfirm={handleConfirmDisable} />
@@ -71,19 +79,54 @@ const ShadowBox = ({ user }) => {
 const UtilitiesShadow = () => {
   const [users, setUsers] = useState([]);
 
+  const generateUserReport = () => {
+    // Implement the logic to generate the report here.
+    console.log('Generating User Report');
+  };
+
+  const handleToggleUser = (user) => {
+    const endpoint = user.userStatus === 'ENABLED' ? 'disable-user' : 'enable-user';
+    const userId = user.id;
+
+    fetch(`http://172.190.66.169:8006/users/${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 'SUCCESS') {
+          // Update the user status in the UI
+          setUsers((prevUsers) =>
+            prevUsers.map((u) =>
+              u.id === userId ? { ...u, userStatus: endpoint === 'enable-user' ? 'ENABLED' : 'DISABLED' } : u
+            )
+          );
+        }
+      })
+      .catch((error) => {
+        console.error('Error toggling user status:', error);
+      });
+  };
+
   useEffect(() => {
-    fetch('https://api-be-my-voice.azurewebsites.net/api/user/get-all-users', {
+    fetch('http://172.190.66.169:8006/users', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`, 
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          //console.log(data.data);
-          setUsers(data.data);
+        if (data.status === 'SUCCESS') {
+          // Filter users with userRole as "NORMAL_USER" or "PREMIUM_USER"
+          const filteredUsers = data.data[0].filter(
+            (user) => user.userRole === 'NORMAL_USER' || user.userRole === 'PREMIUM_USER'
+          );
+          setUsers(filteredUsers);
         }
       })
       .catch((error) => {
@@ -98,7 +141,10 @@ const UtilitiesShadow = () => {
         <Typography variant="h3" component="div">
           Users
         </Typography>
-        <SearchSection />
+        {/* Add the "Generate User Report" button */}
+        <Button variant="contained" color="primary"sx={{color:'white'}} onClick={generateUserReport}>
+          Generate User Report
+        </Button>
       </Toolbar>
       <Divider />
       <Grid container spacing={gridSpacing} mt={1}>
@@ -106,7 +152,7 @@ const UtilitiesShadow = () => {
           <Grid container spacing={gridSpacing}>
             {users.map((user, index) => (
               <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                <ShadowBox user={user} />
+                <ShadowBox user={user} handleToggleUser={handleToggleUser} />
               </Grid>
             ))}
           </Grid>

@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Card, CardContent, CardHeader, Divider, Grid, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import defaultImage from 'assets/images/defaultUser.png';
@@ -7,14 +7,12 @@ import WordsTranslated from '../user/wordsTranslated';
 import DisableUserPopup from './DisableUserPopup';
 import { gridSpacing } from 'store/constant';
 import withAuth from '../withAuth'; 
+import { useParams } from 'react-router-dom';
 
 const UserProfile = () => {
+  const { userId } = useParams();
 
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const handleDisableClick = () => {
-    setDialogOpen(true);
-  };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
@@ -25,34 +23,100 @@ const UserProfile = () => {
     handleCloseDialog();
   };
 
-  const [isLoading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
-  const userData = {
-    fullName: 'Joshua Johns',
-    lastActiveDate: 'August 30, 2023',
-    email: 'joshuajohns@gmail.com',
-    image: defaultImage,
-    contactNumber: '+94 77 824 9346',
-    membershipCategory: 'Premium',
-    screenTime: '2 hours 55 minutes',
-    wordsTranslated: 5000,
-    purchaseHistory: [
-      { transactionId: '12345', amount: '$50', date: 'August 25, 2023' },
-      { transactionId: '67890', amount: '$30', date: 'September 15, 2023' },
-      { transactionId: '72345', amount: '$50', date: 'October 25, 2023' },
-      { transactionId: '86345', amount: '$50', date: 'November 25, 2023' },
-    ],
+  const handleToggleUser = () => {
+    const endpoint = userData.userStatus === 'ENABLED' ? 'disable-user' : 'enable-user';
+    const userId = userData.id;
+  
+    fetch(`http://172.190.66.169:8006/users/${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 'SUCCESS') {
+          // Update the user status in the UI
+          setUserData((prevUserData) => ({
+            ...prevUserData,
+            userStatus: endpoint === 'enable-user' ? 'ENABLED' : 'DISABLED',
+          }));
+        }
+      })
+      .catch((error) => {
+        console.error('Error toggling user status:', error);
+      });
   };
+
+  const generateRandomTransactions = () => {
+    const transactions = [];
+    for (let i = 0; i < 5; i++) {
+      transactions.push({
+        transactionId: `T${Math.floor(Math.random() * 1000)}`,
+        amount: `Rs.${Math.floor(Math.random() * 1000)}`,
+        date: getRandomDate(),
+      });
+    }
+    return transactions;
+  };
+  
+  const getRandomDate = () => {
+    const year = 2023;
+    const month = Math.floor(Math.random() * 12) + 1;
+    const day = Math.floor(Math.random() * 31) + 1;
+
+    const formattedMonth = month.toString().padStart(2, '0');
+    const formattedDay = day.toString().padStart(2, '0');
+
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  };
+
+  const [isLoading, setLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    setLoading(true); 
+
+    fetch(`http://172.190.66.169:8006/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        'accept': '*/*',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 'SUCCESS') {
+          // Set the user data in the state
+          const user = data.data[0];
+          user.purchaseHistory = generateRandomTransactions();
+          user.lastLogin = user.lastLogin.split('T')[0];
+          setUserData(user);
+          setLoading(false); // Set loading to false after fetching data
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error);
+        setLoading (false);
+      });
+  }, [userId]);
+
+  // Render user data when available
+  if (isLoading || !userData) {
+    return (
+      <MainCard>
+        {/* Loading indicator or error message */}
+      </MainCard>
+    );
+  }
 
   return (
     <MainCard sx={{ padding: { xs: '0', md: '0 20px'}}}>
 
       <Typography variant="h3" style={{marginBottom:'5px'}}>{userData.fullName}</Typography>
       <Typography variant="subtitle2" color="textSecondary">
-        Last Active: {userData.lastActiveDate}
+        Last Active: {userData.lastLogin}
       </Typography>
       <Divider sx={{ my: 2 }} />
 
@@ -66,7 +130,7 @@ const UserProfile = () => {
               
               {/* user image */}
               <div style={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                <img src={userData.image} alt="User" style={{ width: '150px', height: '150px', borderRadius: '50%', }} />
+                <img src={defaultImage} alt="User" style={{ width: '150px', height: '150px', borderRadius: '50%', }} />
               </div>
               
               {/* email */}
@@ -88,7 +152,7 @@ const UserProfile = () => {
                 </Typography>
                 <div style={{ width: '100%', background: 'white', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', padding: '8px' }}>
                   <Typography variant="body2" color="textPrimary">
-                  {userData.contactNumber}
+                  {"+94 71 1154 1753"}
                   </Typography>
                 </div>
               </div>
@@ -100,13 +164,28 @@ const UserProfile = () => {
                 </Typography>
                 <div style={{ width: '100%', background: 'white', borderRadius: '10px', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', padding: '8px' }}>
                   <Typography variant="body2" color="textPrimary">
-                  {userData.membershipCategory}
+                  {userData.userRole}
                   </Typography>
                 </div>
               </div>
 
-              <Button variant="contained" color="error" sx={{ mt: 2, width: '100%' }} onClick={handleDisableClick}>
-                Disable User
+              {/* Toggle User Button */}
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  mt: 2,
+                  px: 3,
+                  width: '100%' ,
+                  backgroundColor: userData.userStatus === 'ENABLED' ? 'green' : 'red',
+                  '&:hover': {
+                    backgroundColor: userData.userStatus === 'ENABLED' ? 'darkgreen' : 'darkred',
+                  },
+                }}
+                onClick={() => handleToggleUser(userData)}
+                style={{ color: 'white' }}
+              >
+                {userData.userStatus === 'ENABLED' ? 'Disable User' : 'Enable User'}
               </Button>
 
               <DisableUserPopup open={dialogOpen} onClose={handleCloseDialog} onConfirm={handleConfirmDisable} />
@@ -117,21 +196,21 @@ const UserProfile = () => {
 
         {/* Right Column */}
         <Grid item xs={12} md={6}>
-            <Grid container spacing={gridSpacing} sx={{marginBottom:'25px'}}>
+          <Grid container spacing={gridSpacing} sx={{marginBottom:'25px'}}>
             {/* screen time card  */}
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <ScreenTime isLoading={isLoading} />
-              </Grid>
-            {/* screen time card  */}
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <WordsTranslated isLoading={isLoading} />
-              </Grid>
+            <Grid item sm={6} xs={12} md={6} lg={12}>
+              <ScreenTime isLoading={isLoading} />
             </Grid>
+            {/* screen time card  */}
+            <Grid item sm={6} xs={12} md={6} lg={12}>
+              <WordsTranslated isLoading={isLoading} />
+            </Grid>
+          </Grid>
 
           <Card sx={{ bgcolor: 'primary.light', color: 'grey.800', boxShadow: 5 }}>
-            <CardHeader title="Payment History" titleTypographyProps={{sx: { color: 'white', textAlign: 'center'}}} sx={{ bgcolor: 'primary.main'}} />
+            <CardHeader title="Payment History" titleTypographyProps={{sx: { color: 'white', textAlign: 'center'}}} sx={{ bgcolor: 'primary.main' }} />
             <Divider />
-            <TableContainer style={{ maxHeight: '235px', minHeight:'235px', overflowY:'scroll'}}>
+            <TableContainer style={{ maxHeight: '235px', minHeight:'235px', overflowY:'scroll' }}>
               <Table stickyHeader>
                 <TableHead>
                   <TableRow>
@@ -158,5 +237,4 @@ const UserProfile = () => {
   );
 };
 
-// export default UserProfile;
 export default withAuth(UserProfile);
