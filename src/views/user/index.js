@@ -6,6 +6,7 @@ import { gridSpacing } from 'store/constant';
 import logo from 'assets/images/defaultUser.png';
 import DisableUserPopup from './DisableUserPopup';
 import { Link } from 'react-router-dom';
+import generateUserReport from './UserReport';
 import withAuth from '../withAuth';
 
 const ShadowBox = ({ user, handleToggleUser }) => {
@@ -79,10 +80,49 @@ const ShadowBox = ({ user, handleToggleUser }) => {
 const UtilitiesShadow = () => {
   const [users, setUsers] = useState([]);
 
-  const generateUserReport = () => {
-    // Implement the logic to generate the report here.
-    console.log('Generating User Report');
+  const handleGenerateReport = () => {
+    // Fetch premium users count
+    fetch('http://172.190.66.169:8006/users/premium-users-count', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 'SUCCESS') {
+          const premiumUsersCount = data.data[0];
+          
+          // Now, fetch normal users count
+          fetch('http://172.190.66.169:8006/users/normal-users-count', {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === 'SUCCESS') {
+                const normalUsersCount = data.data[0];
+                
+                // Call the generateUserReport function with the user data and counts
+                generateUserReport(users, premiumUsersCount, normalUsersCount);
+              } else {
+                console.error('Error fetching normal users count:', data.message);
+              }
+            })
+            .catch((error) => {
+              console.error('Error fetching normal users count:', error);
+            });
+        } else {
+          console.error('Error fetching premium users count:', data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching premium users count:', error);
+      });
   };
+  
 
   const handleToggleUser = (user) => {
     const endpoint = user.userStatus === 'ENABLED' ? 'disable-user' : 'enable-user';
@@ -142,7 +182,7 @@ const UtilitiesShadow = () => {
           Users
         </Typography>
         {/* Add the "Generate User Report" button */}
-        <Button variant="contained" color="primary"sx={{color:'white'}} onClick={generateUserReport}>
+        <Button variant="contained" color="primary" sx={{ color: 'white' }} onClick={handleGenerateReport}>
           Generate User Report
         </Button>
       </Toolbar>
