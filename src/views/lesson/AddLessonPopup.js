@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 
+
 const AddLessonPopup = ({ open, onClose, onAddLesson }) => {
   const [lessonTitle, setLessonTitle] = useState('');
 

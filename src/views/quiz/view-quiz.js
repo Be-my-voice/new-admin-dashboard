@@ -150,9 +150,6 @@ const ShadowBox = ({ quiz, handleToggleQuiz }) => {
         <Typography variant="h4" component="div" mt={2}>
           {quiz.quizName}
         </Typography>
-        <Typography variant="body1" color="textSecondary" mt={1}>
-          Questions: 0
-        </Typography>
         <Link to={`/quiz/${quiz.id}`} style={{ textDecoration: 'none' }}>
           <Button variant="contained" style={{background:'white', color:'#22bb33', border: '2px solid #5cb85c'}} size="small" sx={{ mt: 1, px: 4 }}>
             View Quiz

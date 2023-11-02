@@ -245,6 +245,7 @@ const ViewIndividualQuiz = () => {
         </>
         <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
           <CircularProgress color="inherit" />
+          Loading
         </Backdrop>
     </MainCard>
   );

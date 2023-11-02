@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Grid, Typography, Button, Divider } from '@mui/material';
-//import defaultVideo from '../../assets/videos/lesson/preview.mp4';
+import defaultVideo from '../../assets/videos/lesson/preview.mp4';
 import AddSectionPopup from './AddSectionPopup';
 import EditSectionPopup from './EditSectionPopup';
 import DeleteLessonPopup from './DeleteLessonPopup';
 import EditLessonTitlePopup from './EditLessonTitlePopup';
 import DeleteSectionPopup from './DeleteSectionPopup';
 import withAuth from '../withAuth';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 const ViewIndividualLesson = () => {
   const { lessonId } = useParams();
@@ -23,6 +24,8 @@ const ViewIndividualLesson = () => {
   const [lesson, setLesson] = useState({ title: "" });
   const [sectionIdToDelete, setSectionIdToDelete] = useState(null);
   const [sectionDataToEdit, setSectionDataToEdit] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   // Function to fetch the lesson title based on lesson ID
   const fetchLessonTitle = async () => {
@@ -81,6 +84,7 @@ const ViewIndividualLesson = () => {
 
   // Function to fetch sections based on lesson ID using the Fetch API
   const fetchSections = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`http://172.190.66.169:8003/api/get-lesson-sections-by-lesson-id/${lessonId}`);
       if (!response.ok) {
@@ -90,6 +94,8 @@ const ViewIndividualLesson = () => {
       setSections(data);
     } catch (error) {
       console.error('Error fetching sections:', error);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -126,7 +132,7 @@ const ViewIndividualLesson = () => {
           <Grid key={section.id} item xs={12} sm={6} md={4} lg={3}>
             <Card sx={{ boxShadow: 5, borderRadius: '8px' }}>
               {/* include the video from BE */}
-            <CardMedia component="video" controls muted height="160" > <source src={section.video} type="video/mp4" /> Your browser does not support the video tag.</CardMedia>
+            <CardMedia component="video" controls muted height="160" > <source src={defaultVideo} type="video/mp4" /> Your browser does not support the video tag.</CardMedia>
               <CardContent>
                 <Typography variant="h6" component="div" align="center">
                   {section.sectionName}
@@ -182,7 +188,10 @@ const ViewIndividualLesson = () => {
       
       {/* handling pop up for editing section */}
       {<EditSectionPopup open={showEditSectionPopup} onClose={handleClosePopup} sectionData={sectionDataToEdit}/>}
-
+      <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
+        <CircularProgress color="inherit" />
+        Loading
+      </Backdrop>
     </MainCard>
   );
 };

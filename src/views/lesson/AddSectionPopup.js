@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Grid } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
+
 
 const AddSectionPopup = ({ open, onClose, lessonId }) => {
   const [sectionName, setSectionName] = useState('');
   const [sectionDescription, setSectionDescription] = useState('');
   const [video, setVideo] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+  
 
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
@@ -20,6 +25,7 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
   
     fetch('http://172.190.66.169:8003/api/create-lesson-section', {
       method: 'POST',
@@ -36,7 +42,7 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log('New section details:', data);
-        onClose();
+        window.location.reload();
       })
       .catch((error) => {
         console.error('Error creating section:', error);
@@ -99,6 +105,10 @@ const AddSectionPopup = ({ open, onClose, lessonId }) => {
           </Button>
         </DialogActions>
       </form>
+      <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
+          <CircularProgress color="inherit" />
+          Uploading video
+        </Backdrop>
     </Dialog>
   );
 };
